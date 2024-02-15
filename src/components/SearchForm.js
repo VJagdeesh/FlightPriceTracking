@@ -2,6 +2,7 @@ import { Button, Pressable, Text, TextInput, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
+import { Fontisto } from "@expo/vector-icons";
 export default function SearchForm() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
@@ -15,13 +16,13 @@ export default function SearchForm() {
   };
 
   const handleDepartDatePickerChange = (event, selectedDate) => {
-    const currentDate = selectedDate || departDate;
+    const currentDate = selectedDate || new Date();
     setShowDepartDatePicker(false);
     setDepartDate(currentDate);
   };
 
   const handleReturnDatePickerChange = (event, selectedDate) => {
-    const currentDate = selectedDate || returnDate;
+    const currentDate = selectedDate || new Date();
     setShowReturnDatePicker(false);
     setReturnDate(currentDate);
   };
@@ -53,36 +54,44 @@ export default function SearchForm() {
       /> */}
       <Text>Depart Date:</Text>
       <Pressable style={styles.rectangularBox}>
-        <Text
-          // title="Select Depart Date"
-          // value={departDate || new Date()}
-          onPress={() => setShowDepartDatePicker(true)}
-          style={{ color: "black", padding: 4 }}
-        >
-          {departDate.toDateString()}
-        </Text>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <Fontisto name="date" size={24} color="black" />
+          <Text
+            // title="Select Depart Date"
+            // value={departDate || new Date()}
+            onPress={() => setShowDepartDatePicker(true)}
+            style={{ color: "black", padding: 4 }}
+          >
+            {departDate.toDateString()}
+          </Text>
+        </View>
       </Pressable>
       {showDepartDatePicker && (
         <DateTimePicker
           value={departDate}
           onChange={handleDepartDatePickerChange}
+          minimumDate={new Date()}
         />
       )}
       <Text>Return Date:</Text>
       <Pressable style={styles.rectangularBox}>
-        <Text
-          // value={returnDate || new Date()}
-          // title="Select Return Date"
-          style={{ color: "black", padding: 4, marginBottom: 5 }}
-          onPress={() => setShowReturnDatePicker(true)}
-        >
-          {returnDate.toDateString()}
-        </Text>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <Fontisto name="date" size={24} color="black" />
+          <Text
+            // value={returnDate || new Date()}
+            // title="Select Return Date"
+            style={{ color: "black", padding: 4, marginBottom: 5 }}
+            onPress={() => setShowReturnDatePicker(true)}
+          >
+            {returnDate.toDateString()}
+          </Text>
+        </View>
       </Pressable>
       {showReturnDatePicker && (
         <DateTimePicker
           value={returnDate}
           onChange={handleReturnDatePickerChange}
+          minimumDate={departDate}
         />
       )}
       <Button title="search" onPress={onSearchPress} />
