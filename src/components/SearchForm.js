@@ -1,9 +1,16 @@
-import { Button, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+  SafeAreaView,
+} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
-export default function SearchForm() {
+export default function SearchForm({ onSearch }) {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [departDate, setDepartDate] = useState(new Date());
@@ -12,7 +19,8 @@ export default function SearchForm() {
   const [showReturnDatePicker, setShowReturnDatePicker] = useState(false);
 
   const onSearchPress = () => {
-    console.log("Button Pressed");
+    // console.log("Button Pressed ", from, to, departDate, returnDate);
+    onSearch({ from, to, departDate, returnDate });
   };
 
   const handleDepartDatePickerChange = (event, selectedDate) => {
